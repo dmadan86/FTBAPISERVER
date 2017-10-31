@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="104c834ed06b46059d5e28150a5dfaec" Name="Diagram1">
+        <EntityTypeShape EntityType="RCGFileMgtModel.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpAuditLog" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpBackgroundJob" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpEdition" Width="1.5" PointX="3.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpFeature" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpFileShareNotification" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpFileShare" Width="1.5" PointX="10.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpFileShareSubscription" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpGroup" Width="1.5" PointX="10.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpGroupAccount" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpLanguage" Width="1.5" PointX="12.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpLanguageText" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpNotification" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpNotificationSubscription" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpOrganizationUnit" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpPermission" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpRole" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpServer" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpServerNotification" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpServerSubscription" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpSetting" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpSharePermission" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpTenantNotification" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpTenant" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserAccount" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserGroup" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserLoginAttempt" Width="1.5" PointX="16.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserLogin" Width="1.5" PointX="3" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserNotification" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserOrganizationUnit" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUserRole" Width="1.5" PointX="3" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RCGFileMgtModel.AbpUser" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpTenants_dbo_AbpEditions_EditionId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_AbpFileShares_dbo_AbpServer_ServerId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_AbpSharePermissions_Dbo_AbpFileShares" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpPermissions_dbo_AbpUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_AbpSharePermissions_Dbo_AbpRole" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_AbpServer_dbo_AbpTenants_TenantId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpSettings_dbo_AbpUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_AbpSharePermissions_Dbo_AbpUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="RCGFileMgtModel.FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

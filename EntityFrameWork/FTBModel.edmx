@@ -1,0 +1,2331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RCGFileMgtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpAuditLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="256" />
+          <Property Name="MethodName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Parameters" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ExecutionTime" Type="datetime" Nullable="false" />
+          <Property Name="ExecutionDuration" Type="int" Nullable="false" />
+          <Property Name="ClientIpAddress" Type="nvarchar" MaxLength="64" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="128" />
+          <Property Name="BrowserInfo" Type="nvarchar" MaxLength="256" />
+          <Property Name="Exception" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ImpersonatorUserId" Type="bigint" />
+          <Property Name="ImpersonatorTenantId" Type="int" />
+          <Property Name="CustomData" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="AbpBackgroundJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobType" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="JobArgs" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TryCount" Type="smallint" Nullable="false" />
+          <Property Name="NextTryTime" Type="datetime" Nullable="false" />
+          <Property Name="LastTryTime" Type="datetime" />
+          <Property Name="IsAbandoned" Type="bit" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpEditions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpFeatures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="EditionId" Type="int" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpFileShareNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpFileShares">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServerId" Type="int" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="ShareGUID" Type="nvarchar" MaxLength="128" />
+          <Property Name="SharedPath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SharedAgent" Type="nvarchar" MaxLength="10" />
+          <Property Name="SharedFriendlyName" Type="nvarchar" MaxLength="150" />
+          <Property Name="SharedStatus" Type="int" />
+          <Property Name="MountPath" Type="nvarchar" MaxLength="150" />
+          <Property Name="MaxUsers" Type="int" />
+          <Property Name="AutoControl" Type="bit" />
+          <Property Name="HiddenShare" Type="bit" />
+          <Property Name="IgnorePermission" Type="bit" />
+          <Property Name="AccessBasedEnumeration" Type="bit" />
+          <Property Name="ClientCacheType" Type="int" />
+          <Property Name="ShareType" Type="int" />
+          <Property Name="ShareSubDirectories" Type="bit" />
+          <Property Name="UserPermissions" Type="nvarchar" MaxLength="128" />
+          <Property Name="ShareComments" Type="nvarchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="AbpFileShareSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="ServerID" Type="int" />
+          <Property Name="ADGroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="AbpGroupAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpLanguages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpLanguageTexts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="LanguageName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NotificationName" Type="nvarchar" MaxLength="96" Nullable="false" />
+          <Property Name="Data" Type="nvarchar(max)" />
+          <Property Name="DataTypeName" Type="nvarchar" MaxLength="512" />
+          <Property Name="EntityTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="nvarchar" MaxLength="512" />
+          <Property Name="EntityId" Type="nvarchar" MaxLength="96" />
+          <Property Name="Severity" Type="tinyint" Nullable="false" />
+          <Property Name="UserIds" Type="nvarchar(max)" />
+          <Property Name="ExcludedUserIds" Type="nvarchar(max)" />
+          <Property Name="TenantIds" Type="nvarchar(max)" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpNotificationSubscriptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="NotificationName" Type="nvarchar" MaxLength="96" />
+          <Property Name="EntityTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="nvarchar" MaxLength="512" />
+          <Property Name="EntityId" Type="nvarchar" MaxLength="96" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpOrganizationUnits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="ParentId" Type="bigint" />
+          <Property Name="Code" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsGranted" Type="bit" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+        </EntityType>
+        <EntityType Name="AbpRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsStatic" Type="bit" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpServer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="ServerGUID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="15" />
+          <Property Name="ServerPath" Type="nvarchar" MaxLength="64" />
+          <Property Name="AdminEmail" Type="nvarchar" MaxLength="64" />
+          <Property Name="AdminName" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AbpServerNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpServerSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="2000" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpSharePermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="SharedId" Type="int" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AllAccess" Type="bit" Nullable="false" />
+          <Property Name="ReadOnly" Type="bit" Nullable="false" />
+          <Property Name="WriteOnly" Type="bit" Nullable="false" />
+          <Property Name="RenameOnly" Type="bit" Nullable="false" />
+          <Property Name="CanDelete" Type="bit" Nullable="false" />
+          <Property Name="CanCache" Type="bit" Nullable="false" />
+          <Property Name="MaxFiles" Type="int" Nullable="false" />
+          <Property Name="MaxConnections" Type="int" Nullable="false" />
+          <Property Name="DenyFileType" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsGranted" Type="bit" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpTenantNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="NotificationName" Type="nvarchar" MaxLength="96" Nullable="false" />
+          <Property Name="Data" Type="nvarchar(max)" />
+          <Property Name="DataTypeName" Type="nvarchar" MaxLength="512" />
+          <Property Name="EntityTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="nvarchar" MaxLength="512" />
+          <Property Name="EntityId" Type="nvarchar" MaxLength="96" />
+          <Property Name="Severity" Type="tinyint" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpTenants">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenancyName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="TenantGUID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TenantOfficeCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantAddress1" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantAddress2" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantCity" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantState" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantCounty" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantPostalCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantCountry" Type="nvarchar" MaxLength="128" />
+          <Property Name="TenantPhone" Type="nvarchar" MaxLength="28" />
+          <Property Name="TenantMobile" Type="nvarchar" MaxLength="28" />
+          <Property Name="TenantWebSite" Type="nvarchar" MaxLength="28" />
+          <Property Name="TenantManager" Type="nvarchar" MaxLength="28" />
+          <Property Name="TenantManagerEmail" Type="nvarchar" MaxLength="28" />
+          <Property Name="TenantTerritory" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="EditionId" Type="int" />
+          <Property Name="ConnectionString" Type="nvarchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="AbpUserAccounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="UserLinkId" Type="bigint" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="LastLoginTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AbpUserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpUserLoginAttempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="TenancyName" Type="nvarchar" MaxLength="64" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="UserNameOrEmailAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="ClientIpAddress" Type="nvarchar" MaxLength="64" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="128" />
+          <Property Name="BrowserInfo" Type="nvarchar" MaxLength="256" />
+          <Property Name="Result" Type="tinyint" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpUserLogins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+        </EntityType>
+        <EntityType Name="AbpUserNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="TenantNotificationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+        </EntityType>
+        <EntityType Name="AbpUserOrganizationUnits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AbpUserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="TenantId" Type="int" />
+        </EntityType>
+        <EntityType Name="AbpUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="AuthenticationSource" Type="nvarchar" MaxLength="64" />
+          <Property Name="AuthenticationType" Type="nvarchar" MaxLength="64" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="52" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="52" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="52" />
+          <Property Name="DistinguishedName" Type="nvarchar" MaxLength="1050" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="32" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="32" />
+          <Property Name="SamAccountName" Type="nvarchar" MaxLength="32" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" />
+          <Property Name="OTPPassword" Type="nvarchar" MaxLength="128" />
+          <Property Name="OTPSource" Type="nvarchar" MaxLength="128" />
+          <Property Name="OTPExpires" Type="datetime" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" />
+          <Property Name="InGroup" Type="nvarchar" MaxLength="512" />
+          <Property Name="UserPrincipalName" Type="nvarchar" MaxLength="256" />
+          <Property Name="VoiceTelephoneNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="MobileTelephoneNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="IsEmailConfirmed" Type="bit" />
+          <Property Name="EmailConfirmationCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="328" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeleterUserId" Type="bigint" />
+          <Property Name="DeletionTime" Type="datetime" />
+          <Property Name="AccountExpirationDate" Type="datetime" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastLogon" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="bigint" />
+          <Property Name="CreationTime" Type="datetime" />
+          <Property Name="CreatorUserId" Type="bigint" />
+          <Property Name="SID" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_AbpFileShares_dbo_AbpServer_ServerId">
+          <End Role="AbpServer" Type="Self.AbpServer" Multiplicity="1" />
+          <End Role="AbpFileShares" Type="Self.AbpFileShares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpServer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpFileShares">
+              <PropertyRef Name="ServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpServer_dbo_AbpTenants_TenantId">
+          <End Role="AbpTenants" Type="Self.AbpTenants" Multiplicity="0..1" />
+          <End Role="AbpServer" Type="Self.AbpServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpTenants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpServer">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpFileShares">
+          <End Role="AbpFileShares" Type="Self.AbpFileShares" Multiplicity="1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpFileShares">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="SharedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpRole">
+          <End Role="AbpRoles" Type="Self.AbpRoles" Multiplicity="0..1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId">
+          <End Role="AbpEditions" Type="Self.AbpEditions" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpFeatures" Type="Self.AbpFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpEditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpFeatures">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId">
+          <End Role="AbpOrganizationUnits" Type="Self.AbpOrganizationUnits" Multiplicity="0..1" />
+          <End Role="AbpOrganizationUnits1" Type="Self.AbpOrganizationUnits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpOrganizationUnits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpOrganizationUnits1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId">
+          <End Role="AbpRoles" Type="Self.AbpRoles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpPermissions" Type="Self.AbpPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpPermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpPermissions_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpPermissions" Type="Self.AbpPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpPermissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpSettings_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpSettings" Type="Self.AbpSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSettings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpEditions_EditionId">
+          <End Role="AbpEditions" Type="Self.AbpEditions" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpEditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpUserLogins" Type="Self.AbpUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpUserRoles" Type="Self.AbpUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUsers" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RCGFileMgtModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpAuditLogs" EntityType="Self.AbpAuditLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpBackgroundJobs" EntityType="Self.AbpBackgroundJobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpEditions" EntityType="Self.AbpEditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpFeatures" EntityType="Self.AbpFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpFileShareNotifications" EntityType="Self.AbpFileShareNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpFileShares" EntityType="Self.AbpFileShares" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpFileShareSubscription" EntityType="Self.AbpFileShareSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpGroup" EntityType="Self.AbpGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpGroupAccount" EntityType="Self.AbpGroupAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpLanguages" EntityType="Self.AbpLanguages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpLanguageTexts" EntityType="Self.AbpLanguageTexts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpNotifications" EntityType="Self.AbpNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpNotificationSubscriptions" EntityType="Self.AbpNotificationSubscriptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpOrganizationUnits" EntityType="Self.AbpOrganizationUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpPermissions" EntityType="Self.AbpPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpRoles" EntityType="Self.AbpRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpServer" EntityType="Self.AbpServer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpServerNotifications" EntityType="Self.AbpServerNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpServerSubscription" EntityType="Self.AbpServerSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpSettings" EntityType="Self.AbpSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpSharePermissions" EntityType="Self.AbpSharePermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpTenantNotifications" EntityType="Self.AbpTenantNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpTenants" EntityType="Self.AbpTenants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserAccounts" EntityType="Self.AbpUserAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserGroup" EntityType="Self.AbpUserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserLoginAttempts" EntityType="Self.AbpUserLoginAttempts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserLogins" EntityType="Self.AbpUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserNotifications" EntityType="Self.AbpUserNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserOrganizationUnits" EntityType="Self.AbpUserOrganizationUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUserRoles" EntityType="Self.AbpUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbpUsers" EntityType="Self.AbpUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AbpFileShares_dbo_AbpServer_ServerId" Association="Self.FK_AbpFileShares_dbo_AbpServer_ServerId">
+            <End Role="AbpServer" EntitySet="AbpServer" />
+            <End Role="AbpFileShares" EntitySet="AbpFileShares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpServer_dbo_AbpTenants_TenantId" Association="Self.FK_AbpServer_dbo_AbpTenants_TenantId">
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+            <End Role="AbpServer" EntitySet="AbpServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpFileShares" Association="Self.FK_AbpSharePermissions_Dbo_AbpFileShares">
+            <End Role="AbpFileShares" EntitySet="AbpFileShares" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpRole" Association="Self.FK_AbpSharePermissions_Dbo_AbpRole">
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpUserId" Association="Self.FK_AbpSharePermissions_Dbo_AbpUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId" Association="Self.FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId">
+            <End Role="AbpEditions" EntitySet="AbpEditions" />
+            <End Role="AbpFeatures" EntitySet="AbpFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId" Association="Self.FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId">
+            <End Role="AbpOrganizationUnits" EntitySet="AbpOrganizationUnits" />
+            <End Role="AbpOrganizationUnits1" EntitySet="AbpOrganizationUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId" Association="Self.FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId">
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+            <End Role="AbpPermissions" EntitySet="AbpPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpPermissions_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpPermissions_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpPermissions" EntitySet="AbpPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpSettings_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpSettings_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpSettings" EntitySet="AbpSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpEditions_EditionId" Association="Self.FK_dbo_AbpTenants_dbo_AbpEditions_EditionId">
+            <End Role="AbpEditions" EntitySet="AbpEditions" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUserLogins" EntitySet="AbpUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUserRoles" EntitySet="AbpUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RCGFileMgtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpAuditLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="ServiceName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MethodName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Parameters" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExecutionDuration" Type="Int32" Nullable="false" />
+          <Property Name="ClientIpAddress" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="BrowserInfo" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Exception" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ImpersonatorUserId" Type="Int64" />
+          <Property Name="ImpersonatorTenantId" Type="Int32" />
+          <Property Name="CustomData" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AbpBackgroundJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobType" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobArgs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TryCount" Type="Int16" Nullable="false" />
+          <Property Name="NextTryTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastTryTime" Type="DateTime" Precision="3" />
+          <Property Name="IsAbandoned" Type="Boolean" Nullable="false" />
+          <Property Name="Priority" Type="Byte" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpEdition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <NavigationProperty Name="AbpFeatures" Relationship="Self.FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId" FromRole="AbpEditions" ToRole="AbpFeatures" />
+          <NavigationProperty Name="AbpTenants" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpEditions_EditionId" FromRole="AbpEditions" ToRole="AbpTenants" />
+        </EntityType>
+        <EntityType Name="AbpFeature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="EditionId" Type="Int32" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AbpEdition" Relationship="Self.FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId" FromRole="AbpFeatures" ToRole="AbpEditions" />
+        </EntityType>
+        <EntityType Name="AbpFileShareNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpFileShare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerId" Type="Int32" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="ShareGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SharedPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SharedAgent" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SharedFriendlyName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SharedStatus" Type="Int32" />
+          <Property Name="MountPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MaxUsers" Type="Int32" />
+          <Property Name="AutoControl" Type="Boolean" />
+          <Property Name="HiddenShare" Type="Boolean" />
+          <Property Name="IgnorePermission" Type="Boolean" />
+          <Property Name="AccessBasedEnumeration" Type="Boolean" />
+          <Property Name="ClientCacheType" Type="Int32" />
+          <Property Name="ShareType" Type="Int32" />
+          <Property Name="ShareSubDirectories" Type="Boolean" />
+          <Property Name="UserPermissions" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ShareComments" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AbpServer" Relationship="Self.FK_AbpFileShares_dbo_AbpServer_ServerId" FromRole="AbpFileShares" ToRole="AbpServer" />
+          <NavigationProperty Name="AbpSharePermissions" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpFileShares" FromRole="AbpFileShares" ToRole="AbpSharePermissions" />
+        </EntityType>
+        <EntityType Name="AbpFileShareSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="ServerID" Type="Int32" />
+          <Property Name="ADGroupId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AbpGroupAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Icon" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpLanguageText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="LanguageName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Key" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NotificationName" Type="String" MaxLength="96" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataTypeName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="EntityId" Type="String" MaxLength="96" FixedLength="false" Unicode="true" />
+          <Property Name="Severity" Type="Byte" Nullable="false" />
+          <Property Name="UserIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExcludedUserIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TenantIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpNotificationSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="NotificationName" Type="String" MaxLength="96" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="EntityId" Type="String" MaxLength="96" FixedLength="false" Unicode="true" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpOrganizationUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="Code" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <NavigationProperty Name="AbpOrganizationUnits1" Relationship="Self.FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId" FromRole="AbpOrganizationUnits" ToRole="AbpOrganizationUnits1" />
+          <NavigationProperty Name="AbpOrganizationUnit1" Relationship="Self.FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId" FromRole="AbpOrganizationUnits1" ToRole="AbpOrganizationUnits" />
+        </EntityType>
+        <EntityType Name="AbpPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsGranted" Type="Boolean" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <NavigationProperty Name="AbpRole" Relationship="Self.FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId" FromRole="AbpPermissions" ToRole="AbpRoles" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpPermissions_dbo_AbpUsers_UserId" FromRole="AbpPermissions" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsStatic" Type="Boolean" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <NavigationProperty Name="AbpPermissions" Relationship="Self.FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId" FromRole="AbpRoles" ToRole="AbpPermissions" />
+          <NavigationProperty Name="AbpSharePermissions" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpRole" FromRole="AbpRoles" ToRole="AbpSharePermissions" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId" FromRole="AbpRoles" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUser1" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId" FromRole="AbpRoles" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUser2" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId" FromRole="AbpRoles" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpServer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="ServerGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="IpAddress" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ServerPath" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="AdminEmail" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="AdminName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AbpFileShares" Relationship="Self.FK_AbpFileShares_dbo_AbpServer_ServerId" FromRole="AbpServer" ToRole="AbpFileShares" />
+          <NavigationProperty Name="AbpTenant" Relationship="Self.FK_AbpServer_dbo_AbpTenants_TenantId" FromRole="AbpServer" ToRole="AbpTenants" />
+        </EntityType>
+        <EntityType Name="AbpServerNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpServerSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbpSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpSettings_dbo_AbpUsers_UserId" FromRole="AbpSettings" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpSharePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="SharedId" Type="Int32" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AllAccess" Type="Boolean" Nullable="false" />
+          <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
+          <Property Name="WriteOnly" Type="Boolean" Nullable="false" />
+          <Property Name="RenameOnly" Type="Boolean" Nullable="false" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CanCache" Type="Boolean" Nullable="false" />
+          <Property Name="MaxFiles" Type="Int32" Nullable="false" />
+          <Property Name="MaxConnections" Type="Int32" Nullable="false" />
+          <Property Name="DenyFileType" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsGranted" Type="Boolean" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AbpFileShare" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpFileShares" FromRole="AbpSharePermissions" ToRole="AbpFileShares" />
+          <NavigationProperty Name="AbpRole" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpRole" FromRole="AbpSharePermissions" ToRole="AbpRoles" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpUserId" FromRole="AbpSharePermissions" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpTenantNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="NotificationName" Type="String" MaxLength="96" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataTypeName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeAssemblyQualifiedName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="EntityId" Type="String" MaxLength="96" FixedLength="false" Unicode="true" />
+          <Property Name="Severity" Type="Byte" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpTenant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenancyName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantGUID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantOfficeCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantAddress1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantAddress2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantCity" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantState" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantCounty" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantPostalCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantCountry" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenantPhone" Type="String" MaxLength="28" FixedLength="false" Unicode="true" />
+          <Property Name="TenantMobile" Type="String" MaxLength="28" FixedLength="false" Unicode="true" />
+          <Property Name="TenantWebSite" Type="String" MaxLength="28" FixedLength="false" Unicode="true" />
+          <Property Name="TenantManager" Type="String" MaxLength="28" FixedLength="false" Unicode="true" />
+          <Property Name="TenantManagerEmail" Type="String" MaxLength="28" FixedLength="false" Unicode="true" />
+          <Property Name="TenantTerritory" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="EditionId" Type="Int32" />
+          <Property Name="ConnectionString" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AbpEdition" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpEditions_EditionId" FromRole="AbpTenants" ToRole="AbpEditions" />
+          <NavigationProperty Name="AbpServers" Relationship="Self.FK_AbpServer_dbo_AbpTenants_TenantId" FromRole="AbpTenants" ToRole="AbpServer" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId" FromRole="AbpTenants" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUser1" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId" FromRole="AbpTenants" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUser2" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId" FromRole="AbpTenants" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpUserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="UserLinkId" Type="Int64" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AbpUserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="AbpUserLoginAttempt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="TenancyName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="UserNameOrEmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ClientIpAddress" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="BrowserInfo" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="Byte" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="AbpUserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenantId" Type="Int32" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId" FromRole="AbpUserLogins" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpUserNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="TenantNotificationId" Type="Guid" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TenantId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AbpUserOrganizationUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="OrganizationUnitId" Type="Int64" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="AbpUserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="TenantId" Type="Int32" />
+          <NavigationProperty Name="AbpUser" Relationship="Self.FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId" FromRole="AbpUserRoles" ToRole="AbpUsers" />
+        </EntityType>
+        <EntityType Name="AbpUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="AuthenticationSource" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="AuthenticationType" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="52" FixedLength="false" Unicode="true" />
+          <Property Name="GivenName" Type="String" MaxLength="52" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="52" FixedLength="false" Unicode="true" />
+          <Property Name="DistinguishedName" Type="String" MaxLength="1050" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="SamAccountName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OTPPassword" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OTPSource" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OTPExpires" Type="DateTime" Precision="3" />
+          <Property Name="EmailAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="InGroup" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="UserPrincipalName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="VoiceTelephoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="MobileTelephoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailConfirmed" Type="Boolean" />
+          <Property Name="EmailConfirmationCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordResetCode" Type="String" MaxLength="328" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeleterUserId" Type="Int64" />
+          <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+          <Property Name="AccountExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastLogon" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int64" />
+          <Property Name="CreationTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int64" />
+          <Property Name="SID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AbpPermissions" Relationship="Self.FK_dbo_AbpPermissions_dbo_AbpUsers_UserId" FromRole="AbpUsers" ToRole="AbpPermissions" />
+          <NavigationProperty Name="AbpRoles" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId" FromRole="AbpUsers" ToRole="AbpRoles" />
+          <NavigationProperty Name="AbpRoles1" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId" FromRole="AbpUsers" ToRole="AbpRoles" />
+          <NavigationProperty Name="AbpRoles2" Relationship="Self.FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId" FromRole="AbpUsers" ToRole="AbpRoles" />
+          <NavigationProperty Name="AbpSettings" Relationship="Self.FK_dbo_AbpSettings_dbo_AbpUsers_UserId" FromRole="AbpUsers" ToRole="AbpSettings" />
+          <NavigationProperty Name="AbpSharePermissions" Relationship="Self.FK_AbpSharePermissions_Dbo_AbpUserId" FromRole="AbpUsers" ToRole="AbpSharePermissions" />
+          <NavigationProperty Name="AbpTenants" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId" FromRole="AbpUsers" ToRole="AbpTenants" />
+          <NavigationProperty Name="AbpTenants1" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId" FromRole="AbpUsers" ToRole="AbpTenants" />
+          <NavigationProperty Name="AbpTenants2" Relationship="Self.FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId" FromRole="AbpUsers" ToRole="AbpTenants" />
+          <NavigationProperty Name="AbpUserLogins" Relationship="Self.FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId" FromRole="AbpUsers" ToRole="AbpUserLogins" />
+          <NavigationProperty Name="AbpUserRoles" Relationship="Self.FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId" FromRole="AbpUsers" ToRole="AbpUserRoles" />
+          <NavigationProperty Name="AbpUsers1" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId" FromRole="AbpUsers" ToRole="AbpUsers1" />
+          <NavigationProperty Name="AbpUser1" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId" FromRole="AbpUsers1" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUsers11" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId" FromRole="AbpUsers" ToRole="AbpUsers1" />
+          <NavigationProperty Name="AbpUser2" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId" FromRole="AbpUsers1" ToRole="AbpUsers" />
+          <NavigationProperty Name="AbpUsers12" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId" FromRole="AbpUsers" ToRole="AbpUsers1" />
+          <NavigationProperty Name="AbpUser3" Relationship="Self.FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId" FromRole="AbpUsers1" ToRole="AbpUsers" />
+        </EntityType>
+        <Association Name="FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId">
+          <End Role="AbpEditions" Type="Self.AbpEdition" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpFeatures" Type="Self.AbpFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpEditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpFeatures">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpEditions_EditionId">
+          <End Role="AbpEditions" Type="Self.AbpEdition" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpEditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpFileShares_dbo_AbpServer_ServerId">
+          <End Role="AbpServer" Type="Self.AbpServer" Multiplicity="1" />
+          <End Role="AbpFileShares" Type="Self.AbpFileShare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpServer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpFileShares">
+              <PropertyRef Name="ServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpFileShares">
+          <End Role="AbpFileShares" Type="Self.AbpFileShare" Multiplicity="1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpFileShares">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="SharedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId">
+          <End Role="AbpOrganizationUnits" Type="Self.AbpOrganizationUnit" Multiplicity="0..1" />
+          <End Role="AbpOrganizationUnits1" Type="Self.AbpOrganizationUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpOrganizationUnits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpOrganizationUnits1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId">
+          <End Role="AbpRoles" Type="Self.AbpRole" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpPermissions" Type="Self.AbpPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpPermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpPermissions_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpPermissions" Type="Self.AbpPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpPermissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpRole">
+          <End Role="AbpRoles" Type="Self.AbpRole" Multiplicity="0..1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpRoles" Type="Self.AbpRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpRoles">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpServer_dbo_AbpTenants_TenantId">
+          <End Role="AbpTenants" Type="Self.AbpTenant" Multiplicity="0..1" />
+          <End Role="AbpServer" Type="Self.AbpServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpTenants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpServer">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpSettings_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpSettings" Type="Self.AbpSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSettings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbpSharePermissions_Dbo_AbpUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="1" />
+          <End Role="AbpSharePermissions" Type="Self.AbpSharePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpSharePermissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpTenants" Type="Self.AbpTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpTenants">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpUserLogins" Type="Self.AbpUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbpUserRoles" Type="Self.AbpUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="CreatorUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="DeleterUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId">
+          <End Role="AbpUsers" Type="Self.AbpUser" Multiplicity="0..1" />
+          <End Role="AbpUsers1" Type="Self.AbpUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbpUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbpUsers1">
+              <PropertyRef Name="LastModifierUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FTBFileMgtEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AbpAuditLogs" EntityType="Self.AbpAuditLog" />
+          <EntitySet Name="AbpBackgroundJobs" EntityType="Self.AbpBackgroundJob" />
+          <EntitySet Name="AbpEditions" EntityType="Self.AbpEdition" />
+          <EntitySet Name="AbpFeatures" EntityType="Self.AbpFeature" />
+          <EntitySet Name="AbpFileShareNotifications" EntityType="Self.AbpFileShareNotification" />
+          <EntitySet Name="AbpFileShares" EntityType="Self.AbpFileShare" />
+          <EntitySet Name="AbpFileShareSubscriptions" EntityType="Self.AbpFileShareSubscription" />
+          <EntitySet Name="AbpGroups" EntityType="Self.AbpGroup" />
+          <EntitySet Name="AbpGroupAccounts" EntityType="Self.AbpGroupAccount" />
+          <EntitySet Name="AbpLanguages" EntityType="Self.AbpLanguage" />
+          <EntitySet Name="AbpLanguageTexts" EntityType="Self.AbpLanguageText" />
+          <EntitySet Name="AbpNotifications" EntityType="Self.AbpNotification" />
+          <EntitySet Name="AbpNotificationSubscriptions" EntityType="Self.AbpNotificationSubscription" />
+          <EntitySet Name="AbpOrganizationUnits" EntityType="Self.AbpOrganizationUnit" />
+          <EntitySet Name="AbpPermissions" EntityType="Self.AbpPermission" />
+          <EntitySet Name="AbpRoles" EntityType="Self.AbpRole" />
+          <EntitySet Name="AbpServers" EntityType="Self.AbpServer" />
+          <EntitySet Name="AbpServerNotifications" EntityType="Self.AbpServerNotification" />
+          <EntitySet Name="AbpServerSubscriptions" EntityType="Self.AbpServerSubscription" />
+          <EntitySet Name="AbpSettings" EntityType="Self.AbpSetting" />
+          <EntitySet Name="AbpSharePermissions" EntityType="Self.AbpSharePermission" />
+          <EntitySet Name="AbpTenantNotifications" EntityType="Self.AbpTenantNotification" />
+          <EntitySet Name="AbpTenants" EntityType="Self.AbpTenant" />
+          <EntitySet Name="AbpUserAccounts" EntityType="Self.AbpUserAccount" />
+          <EntitySet Name="AbpUserGroups" EntityType="Self.AbpUserGroup" />
+          <EntitySet Name="AbpUserLoginAttempts" EntityType="Self.AbpUserLoginAttempt" />
+          <EntitySet Name="AbpUserLogins" EntityType="Self.AbpUserLogin" />
+          <EntitySet Name="AbpUserNotifications" EntityType="Self.AbpUserNotification" />
+          <EntitySet Name="AbpUserOrganizationUnits" EntityType="Self.AbpUserOrganizationUnit" />
+          <EntitySet Name="AbpUserRoles" EntityType="Self.AbpUserRole" />
+          <EntitySet Name="AbpUsers" EntityType="Self.AbpUser" />
+          <AssociationSet Name="FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId" Association="Self.FK_dbo_AbpFeatures_dbo_AbpEditions_EditionId">
+            <End Role="AbpEditions" EntitySet="AbpEditions" />
+            <End Role="AbpFeatures" EntitySet="AbpFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpEditions_EditionId" Association="Self.FK_dbo_AbpTenants_dbo_AbpEditions_EditionId">
+            <End Role="AbpEditions" EntitySet="AbpEditions" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpFileShares_dbo_AbpServer_ServerId" Association="Self.FK_AbpFileShares_dbo_AbpServer_ServerId">
+            <End Role="AbpServer" EntitySet="AbpServers" />
+            <End Role="AbpFileShares" EntitySet="AbpFileShares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpFileShares" Association="Self.FK_AbpSharePermissions_Dbo_AbpFileShares">
+            <End Role="AbpFileShares" EntitySet="AbpFileShares" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId" Association="Self.FK_dbo_AbpOrganizationUnits_dbo_AbpOrganizationUnits_ParentId">
+            <End Role="AbpOrganizationUnits" EntitySet="AbpOrganizationUnits" />
+            <End Role="AbpOrganizationUnits1" EntitySet="AbpOrganizationUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId" Association="Self.FK_dbo_AbpPermissions_dbo_AbpRoles_RoleId">
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+            <End Role="AbpPermissions" EntitySet="AbpPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpPermissions_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpPermissions_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpPermissions" EntitySet="AbpPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpRole" Association="Self.FK_AbpSharePermissions_Dbo_AbpRole">
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpRoles_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpRoles" EntitySet="AbpRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpServer_dbo_AbpTenants_TenantId" Association="Self.FK_AbpServer_dbo_AbpTenants_TenantId">
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+            <End Role="AbpServer" EntitySet="AbpServers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpSettings_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpSettings_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpSettings" EntitySet="AbpSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbpSharePermissions_Dbo_AbpUserId" Association="Self.FK_AbpSharePermissions_Dbo_AbpUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpSharePermissions" EntitySet="AbpSharePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpTenants_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpTenants" EntitySet="AbpTenants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpUserLogins_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUserLogins" EntitySet="AbpUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId" Association="Self.FK_dbo_AbpUserRoles_dbo_AbpUsers_UserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUserRoles" EntitySet="AbpUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_CreatorUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_DeleterUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId" Association="Self.FK_dbo_AbpUsers_dbo_AbpUsers_LastModifierUserId">
+            <End Role="AbpUsers" EntitySet="AbpUsers" />
+            <End Role="AbpUsers1" EntitySet="AbpUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RCGFileMgtModelStoreContainer" CdmEntityContainer="FTBFileMgtEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpAuditLogs">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpAuditLog">
+              <MappingFragment StoreEntitySet="AbpAuditLogs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+                <ScalarProperty Name="ExecutionDuration" ColumnName="ExecutionDuration" />
+                <ScalarProperty Name="ClientIpAddress" ColumnName="ClientIpAddress" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="BrowserInfo" ColumnName="BrowserInfo" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="ImpersonatorUserId" ColumnName="ImpersonatorUserId" />
+                <ScalarProperty Name="ImpersonatorTenantId" ColumnName="ImpersonatorTenantId" />
+                <ScalarProperty Name="CustomData" ColumnName="CustomData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpBackgroundJobs">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpBackgroundJob">
+              <MappingFragment StoreEntitySet="AbpBackgroundJobs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobArgs" ColumnName="JobArgs" />
+                <ScalarProperty Name="TryCount" ColumnName="TryCount" />
+                <ScalarProperty Name="NextTryTime" ColumnName="NextTryTime" />
+                <ScalarProperty Name="LastTryTime" ColumnName="LastTryTime" />
+                <ScalarProperty Name="IsAbandoned" ColumnName="IsAbandoned" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpEditions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpEdition">
+              <MappingFragment StoreEntitySet="AbpEditions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpFeatures">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpFeature">
+              <MappingFragment StoreEntitySet="AbpFeatures">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpFileShareNotifications">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpFileShareNotification">
+              <MappingFragment StoreEntitySet="AbpFileShareNotifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpFileShares">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpFileShare">
+              <MappingFragment StoreEntitySet="AbpFileShares">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ServerId" ColumnName="ServerId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ShareGUID" ColumnName="ShareGUID" />
+                <ScalarProperty Name="SharedPath" ColumnName="SharedPath" />
+                <ScalarProperty Name="SharedAgent" ColumnName="SharedAgent" />
+                <ScalarProperty Name="SharedFriendlyName" ColumnName="SharedFriendlyName" />
+                <ScalarProperty Name="SharedStatus" ColumnName="SharedStatus" />
+                <ScalarProperty Name="MountPath" ColumnName="MountPath" />
+                <ScalarProperty Name="MaxUsers" ColumnName="MaxUsers" />
+                <ScalarProperty Name="AutoControl" ColumnName="AutoControl" />
+                <ScalarProperty Name="HiddenShare" ColumnName="HiddenShare" />
+                <ScalarProperty Name="IgnorePermission" ColumnName="IgnorePermission" />
+                <ScalarProperty Name="AccessBasedEnumeration" ColumnName="AccessBasedEnumeration" />
+                <ScalarProperty Name="ClientCacheType" ColumnName="ClientCacheType" />
+                <ScalarProperty Name="ShareType" ColumnName="ShareType" />
+                <ScalarProperty Name="ShareSubDirectories" ColumnName="ShareSubDirectories" />
+                <ScalarProperty Name="UserPermissions" ColumnName="UserPermissions" />
+                <ScalarProperty Name="ShareComments" ColumnName="ShareComments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpFileShareSubscriptions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpFileShareSubscription">
+              <MappingFragment StoreEntitySet="AbpFileShareSubscription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpGroups">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpGroup">
+              <MappingFragment StoreEntitySet="AbpGroup">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ServerID" ColumnName="ServerID" />
+                <ScalarProperty Name="ADGroupId" ColumnName="ADGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpGroupAccounts">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpGroupAccount">
+              <MappingFragment StoreEntitySet="AbpGroupAccount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpLanguages">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpLanguage">
+              <MappingFragment StoreEntitySet="AbpLanguages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpLanguageTexts">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpLanguageText">
+              <MappingFragment StoreEntitySet="AbpLanguageTexts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpNotifications">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpNotification">
+              <MappingFragment StoreEntitySet="AbpNotifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="DataTypeName" ColumnName="DataTypeName" />
+                <ScalarProperty Name="EntityTypeName" ColumnName="EntityTypeName" />
+                <ScalarProperty Name="EntityTypeAssemblyQualifiedName" ColumnName="EntityTypeAssemblyQualifiedName" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="UserIds" ColumnName="UserIds" />
+                <ScalarProperty Name="ExcludedUserIds" ColumnName="ExcludedUserIds" />
+                <ScalarProperty Name="TenantIds" ColumnName="TenantIds" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpNotificationSubscriptions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpNotificationSubscription">
+              <MappingFragment StoreEntitySet="AbpNotificationSubscriptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+                <ScalarProperty Name="EntityTypeName" ColumnName="EntityTypeName" />
+                <ScalarProperty Name="EntityTypeAssemblyQualifiedName" ColumnName="EntityTypeAssemblyQualifiedName" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpOrganizationUnits">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpOrganizationUnit">
+              <MappingFragment StoreEntitySet="AbpOrganizationUnits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpPermissions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpPermission">
+              <MappingFragment StoreEntitySet="AbpPermissions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsGranted" ColumnName="IsGranted" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpRoles">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpRole">
+              <MappingFragment StoreEntitySet="AbpRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsStatic" ColumnName="IsStatic" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpServers">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpServer">
+              <MappingFragment StoreEntitySet="AbpServer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ServerGUID" ColumnName="ServerGUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="ServerPath" ColumnName="ServerPath" />
+                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpServerNotifications">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpServerNotification">
+              <MappingFragment StoreEntitySet="AbpServerNotifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpServerSubscriptions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpServerSubscription">
+              <MappingFragment StoreEntitySet="AbpServerSubscription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpSettings">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpSetting">
+              <MappingFragment StoreEntitySet="AbpSettings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpSharePermissions">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpSharePermission">
+              <MappingFragment StoreEntitySet="AbpSharePermissions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SharedId" ColumnName="SharedId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AllAccess" ColumnName="AllAccess" />
+                <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
+                <ScalarProperty Name="WriteOnly" ColumnName="WriteOnly" />
+                <ScalarProperty Name="RenameOnly" ColumnName="RenameOnly" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+                <ScalarProperty Name="CanCache" ColumnName="CanCache" />
+                <ScalarProperty Name="MaxFiles" ColumnName="MaxFiles" />
+                <ScalarProperty Name="MaxConnections" ColumnName="MaxConnections" />
+                <ScalarProperty Name="DenyFileType" ColumnName="DenyFileType" />
+                <ScalarProperty Name="IsGranted" ColumnName="IsGranted" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpTenantNotifications">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpTenantNotification">
+              <MappingFragment StoreEntitySet="AbpTenantNotifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="DataTypeName" ColumnName="DataTypeName" />
+                <ScalarProperty Name="EntityTypeName" ColumnName="EntityTypeName" />
+                <ScalarProperty Name="EntityTypeAssemblyQualifiedName" ColumnName="EntityTypeAssemblyQualifiedName" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpTenants">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpTenant">
+              <MappingFragment StoreEntitySet="AbpTenants">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenancyName" ColumnName="TenancyName" />
+                <ScalarProperty Name="TenantGUID" ColumnName="TenantGUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TenantOfficeCode" ColumnName="TenantOfficeCode" />
+                <ScalarProperty Name="TenantAddress1" ColumnName="TenantAddress1" />
+                <ScalarProperty Name="TenantAddress2" ColumnName="TenantAddress2" />
+                <ScalarProperty Name="TenantCity" ColumnName="TenantCity" />
+                <ScalarProperty Name="TenantState" ColumnName="TenantState" />
+                <ScalarProperty Name="TenantCounty" ColumnName="TenantCounty" />
+                <ScalarProperty Name="TenantPostalCode" ColumnName="TenantPostalCode" />
+                <ScalarProperty Name="TenantCountry" ColumnName="TenantCountry" />
+                <ScalarProperty Name="TenantPhone" ColumnName="TenantPhone" />
+                <ScalarProperty Name="TenantMobile" ColumnName="TenantMobile" />
+                <ScalarProperty Name="TenantWebSite" ColumnName="TenantWebSite" />
+                <ScalarProperty Name="TenantManager" ColumnName="TenantManager" />
+                <ScalarProperty Name="TenantManagerEmail" ColumnName="TenantManagerEmail" />
+                <ScalarProperty Name="TenantTerritory" ColumnName="TenantTerritory" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+                <ScalarProperty Name="ConnectionString" ColumnName="ConnectionString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserAccounts">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserAccount">
+              <MappingFragment StoreEntitySet="AbpUserAccounts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserLinkId" ColumnName="UserLinkId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserGroups">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserGroup">
+              <MappingFragment StoreEntitySet="AbpUserGroup">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserLoginAttempts">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserLoginAttempt">
+              <MappingFragment StoreEntitySet="AbpUserLoginAttempts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="TenancyName" ColumnName="TenancyName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserNameOrEmailAddress" ColumnName="UserNameOrEmailAddress" />
+                <ScalarProperty Name="ClientIpAddress" ColumnName="ClientIpAddress" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="BrowserInfo" ColumnName="BrowserInfo" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserLogins">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserLogin">
+              <MappingFragment StoreEntitySet="AbpUserLogins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserNotifications">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserNotification">
+              <MappingFragment StoreEntitySet="AbpUserNotifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TenantNotificationId" ColumnName="TenantNotificationId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserOrganizationUnits">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserOrganizationUnit">
+              <MappingFragment StoreEntitySet="AbpUserOrganizationUnits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrganizationUnitId" ColumnName="OrganizationUnitId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUserRoles">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUserRole">
+              <MappingFragment StoreEntitySet="AbpUserRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbpUsers">
+            <EntityTypeMapping TypeName="RCGFileMgtModel.AbpUser">
+              <MappingFragment StoreEntitySet="AbpUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="AuthenticationSource" ColumnName="AuthenticationSource" />
+                <ScalarProperty Name="AuthenticationType" ColumnName="AuthenticationType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="DistinguishedName" ColumnName="DistinguishedName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="SamAccountName" ColumnName="SamAccountName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="OTPPassword" ColumnName="OTPPassword" />
+                <ScalarProperty Name="OTPSource" ColumnName="OTPSource" />
+                <ScalarProperty Name="OTPExpires" ColumnName="OTPExpires" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="InGroup" ColumnName="InGroup" />
+                <ScalarProperty Name="UserPrincipalName" ColumnName="UserPrincipalName" />
+                <ScalarProperty Name="VoiceTelephoneNumber" ColumnName="VoiceTelephoneNumber" />
+                <ScalarProperty Name="MobileTelephoneNumber" ColumnName="MobileTelephoneNumber" />
+                <ScalarProperty Name="IsEmailConfirmed" ColumnName="IsEmailConfirmed" />
+                <ScalarProperty Name="EmailConfirmationCode" ColumnName="EmailConfirmationCode" />
+                <ScalarProperty Name="PasswordResetCode" ColumnName="PasswordResetCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+                <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+                <ScalarProperty Name="AccountExpirationDate" ColumnName="AccountExpirationDate" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="LastLogon" ColumnName="LastLogon" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
