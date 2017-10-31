@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Microsoft PowerPoint</title>
+
+    <meta charset='UTF-8'>
+    <meta name="robots" content="noindex">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+
+    <style type="text/css">
+        /* body {
+            background-color: #152836;
+        }*/
+        #dvLoading {
+            background: #259090 url(/images/prettyPhoto/default/loader.gif) no-repeat center center;
+            height: 100px;
+            width: 400px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            margin: -25px 0 0 -25px;
+        }
+          body {
+            font-family: 'Verdana', sans-serif;
+            font-size: 14px;/*smaller*/ 
+        }
+        #headerWrapper {
+            position: fixed;
+            width: 100%;
+            top: 150;
+            height: 100px;
+        }
+    </style>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div id="headerWrapper">
+        <!--img src="~/images/dragsave.png" alt="Drag and save"  style="float:left;"/>-->
+        <img id="msgid" draggable="true" src="@ViewBag.fileloc" data-rimkus="@ViewBag.rimkus" />
+        <div style="float:right" id="docLoader"><img style="float:right;" src="~/images/loading.gif" /></div>
+    </div>
+
+    <div style="height:100vH; width:100wH">
+        <iframe src='@Url.Action("AsPPTPDF")' width="100%" height="100%"></iframe>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#docLoader").fadeOut(2000);
+        });
+    </script>
+</body>
+</html>
+
+

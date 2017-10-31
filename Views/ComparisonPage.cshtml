@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h1>RIMKUS FTB &nbsp;vs &nbsp;SOLARWIND&nbsp;</h1>
+        <h2>The following is a cursory 10 minutes observation report on both systems.<br />The conclusion is not exhaustive . The results are deduced using Fiddler4.0&nbsp;</h2>
+        <p>SolarWind is a Web based application for Managing Shares .</p>
+        <p>Rimkus FTB is a similar program to manage shares and User Control.</p>
+        <h2>Some useful features:</h2>
+        <h2>&nbsp;</h2>
+        <table style="height: 192px;" width="773">
+            <tbody>
+                <tr>
+                    <td style="width: 100px;">&nbsp;</td>
+                    <td style="width: 300px; text-align: center;"><strong>RIMKUS FTB&nbsp;</strong></td>
+                    <td style="text-align: center;"><strong>&nbsp;SOLAR WIND</strong></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Base Platform</td>
+                    <td>&nbsp;Windows &nbsp;Web Application on 80/443</td>
+                    <td>&nbsp;Windows Web Application on 80/443</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Client Platform</td>
+                    <td>&nbsp;Web Access/Desktop/CellPhone</td>
+                    <td>&nbsp;Web Access</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;SaaS System</td>
+                    <td>&nbsp;Fully SaaS Web Application&nbsp;</td>
+                    <td>&nbsp;Single Location only</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Global Control</td>
+                    <td>&nbsp;All Servers controlled centrally</td>
+                    <td>&nbsp;Server controlled locally</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Client Request</td>
+                    <td>&nbsp;RestfulAPI using POST</td>
+                    <td>&nbsp;Web Request using Querystring</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Uses Restfull call for command<br />eg: <a href="https://dev.rimkus.dev/filemenu/getfileinfo">https://dev.rimkus.dev/filemenu/getfileinfo</a><br />No classified information is visible</td>
+                    <td>uses Querystring&nbsp;<br /> <code><a href="http://share.rimkus.com?user=temp&amp;password=temppw&amp;thumbnail=1&amp;dir=/D:/temp/&amp;file=textfile.txt">http://share.rimkus.com?user=temp&amp;password=temppw&amp;thumbnail=1&amp;dir=/D:/temp/&amp;file=textfile.txt</a><br /></code>User name and Password sent as string</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Security</td>
+                    <td>Microsoft OWIN &nbsp;Token Based</td>
+                    <td>&nbsp;Cookie based Authentication</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Based on</td>
+                    <td>&nbsp;Locally developed system at Rimkus</td>
+                    <td>&nbsp;Based on FTP Voyager Program&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Internal Communication</td>
+                    <td>&nbsp;Windows based API Call</td>
+                    <td>&nbsp;JAVA and Java Applet running on the client and server</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;File Upload</td>
+                    <td>&nbsp;Interactive with visible status</td>
+                    <td>&nbsp;Two step upload , no visible status</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;File Download</td>
+                    <td>&nbsp;Interactive with visible status</td>
+                    <td>&nbsp;Two step download no visible status</td>
+                </tr>
+                <tr>
+                    <td>Share control</td>
+                    <td>&nbsp;Controlled centrally by an Admin</td>
+                    <td>&nbsp;Controlled by user uploading the file.</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Notification</td>
+                    <td>&nbsp;Interactive&nbsp;using Visual Platform/Email/Text</td>
+                    <td>&nbsp;Using Email only</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;Logging</td>
+                    <td>Logging at Main / Logging locally</td>
+                    <td>&nbsp;Logging locally only</td>
+                </tr>
+            </tbody>
+        </table>
+        <ol>
+            <li></li>
+        </ol>
+    </div>
+</body>
+</html>
